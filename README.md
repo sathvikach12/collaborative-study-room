@@ -39,25 +39,28 @@ Ensure you have the following installed on your system:
    ```bash
    git clone [https://github.com/sathvikach12/collaborative-study-room.git](https://github.com/sathvikach12/collaborative-study-room.git)
 
-   Navigate into the project directory:
+ 1.Navigate into the project directory:
 
 Bash
 cd collaborative-study-room
-Install the required dependencies:
 
+2.Install the required dependencies:
 Bash
 npm install
-Running the Application
-Start the server locally:
 
+3.Running the Application
+Start the server locally:
 Bash
 node server.js
-Open your web browser and navigate to:
 
+Open your web browser and navigate to:
 Plaintext
 http://localhost:3000
+
+
 Deployment
 This application is ready for continuous deployment on platforms like Render. Ensure your start command is configured to node server.js and your environment variables are correctly mapped.
+
 
 License
 Distributed under the MIT License. See LICENSE for more information.
