@@ -1,74 +1,32 @@
-Collaborative Study Room & Real-Time AI Workspace
+# Collaborative Study Room & Real-Time AI Workspace
+
 A production-grade, real-time web application engineered for collaborative group study, combining multi-user room synchronization, AI-powered tutoring, PDF document parsing, and interactive gamified study tools into a clean SaaS dashboard.
 
-System Architecture & Tech Stack
-Backend Runtime: Node.js, Express.js
+## Features
 
-Real-Time Engine: Socket.IO for event-driven multi-user broadcasting and room isolation
+* **Real-Time Room Sync**: Isolate study groups into private rooms using **Socket.IO** to handle live multi-user text editing, instant chat broadcasting, and active participant presence tracking.
+* **AI Study Assistant**: Powered by the official Gemini SDK (`gemini-3.6-flash`), students can query document explanations, ask complex concept questions, and receive targeted study summaries based on shared room context.
+* **Multiplayer Quiz Generator**: Automatically converts parsed document text into structured, multiple-choice study quizzes using JSON parsing, featuring live room score tracking and leaderboards.
+* **Integrated Productivity Tools**: Includes built-in Pomodoro focus timers, file upload handling for PDF notes, and a responsive 3-column dashboard layout.
 
-Artificial Intelligence: Official @google/genai SDK utilizing gemini-3.6-flash for context-aware tutoring and quiz generation
+## Tech Stack
 
-Document Processing: pdf-parse for extracting text data from uploaded study materials
+* **Backend Runtime**: Node.js, Express.js
+* **Real-Time Engine**: Socket.IO
+* **Artificial Intelligence**: Google Gemini API (`@google/genai`)
+* **Document Processing**: `pdf-parse`
+* **Frontend Interface**: Vanilla JavaScript, HTML5, Tailwind CSS
+* **Deployment**: Render
 
-Frontend Interface: Vanilla JavaScript, HTML5, and responsive Tailwind CSS utility styling
+## Getting Started
 
-Core Features
-Real-Time Room Sync: Isolate study groups into private rooms using Socket.IO to handle live multi-user text editing, instant chat broadcasting, and active participant presence tracking.
+### Prerequisites
 
-AI Study Assistant: Powered by the Gemini SDK (gemini-3.6-flash), students can query document explanations, ask complex concept questions, and receive targeted study summaries based on shared room context.
+Make sure you have Node.js and npm installed on your local machine.
 
-Multiplayer Quiz Generator: Automatically converts parsed document text into structured, multiple-choice study quizzes using JSON parsing, featuring live room score tracking and leaderboards.
+### Installation & Setup
 
-Integrated Productivity Tools: Includes built-in Pomodoro focus timers, file upload handling for PDF notes, and a responsive 3-column dashboard layout.
-
-Project Structure
-Plaintext
-collaborative-study-room/
-├── public/                 # Frontend assets, HTML, and client-side scripts
-├── server.js               # Express server, Socket.IO handlers, and Gemini integration
-├── package.json            # Project dependencies and deployment scripts
-└── .env                    # Environment variables (excluded from version control)
-Local Installation & Setup
-Clone the Repository
-
-Bash
-git clone https://github.com/sathvikach12/collaborative-study-room.git
-cd collaborative-study-room
-Install Dependencies
-
-Bash
-npm install
-Configure Environment Variables
-Create a .env file in the root directory and add your required API credentials:
-
-Code snippet
-PORT=3000
-GEMINI_API_KEY=your_actual_api_key_here
-Run the Application Locally
-
-Bash
-npm start
-Open your browser and navigate to http://localhost:3000.
-
-Cloud Deployment (Render)
-Because this application relies on persistent WebSocket connections (Socket.IO) and a continuous Node.js server, it requires a platform that supports long-running background processes rather than serverless architectures.
-
-Create a Web Service on Render
-
-Link your GitHub repository (sathvikach12/collaborative-study-room) to a new Web Service on Render.
-
-Select Node as the runtime environment.
-
-Configure Build and Start Settings
-
-Build Command: npm install
-
-Start Command: node server.js
-
-Add Environment Variables
-
-In your Render service settings, add your secure API key under the Environment tab:
-
-GEMINI_API_KEY: Your private Gemini API credential.
-
-The hosting environment will automatically handle dynamic port binding via process.env.PORT.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/sathvikach12/collaborative-study-room.git
+   cd collaborative-study-room
