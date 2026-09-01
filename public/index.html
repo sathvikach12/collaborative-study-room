@@ -9,13 +9,40 @@
             --bg: #f6f7fb;
             --surface: #ffffff;
             --surface-soft: #f8fafc;
+            --surface-note: #fffef8;
+            --surface-chat: #ffffff;
+            --surface-chat-mine: #eff6ff;
+            --surface-ai: #ecfdf5;
+            --surface-quiz: #f5f3ff;
+            --surface-warning: #fef3c7;
             --ink: #111827;
+            --ink-soft: #1f2937;
             --muted: #6b7280;
             --line: #e5e7eb;
             --line-strong: #d1d5db;
             --blue: #2563eb;
             --green: #059669;
             --shadow: 0 18px 50px rgba(17, 24, 39, 0.08);
+        }
+
+        body.dark-mode {
+            --bg: #0f172a;
+            --surface: #111827;
+            --surface-soft: #162033;
+            --surface-note: #151e2e;
+            --surface-chat: #1f2937;
+            --surface-chat-mine: #1e3a5f;
+            --surface-ai: #133426;
+            --surface-quiz: #251b44;
+            --surface-warning: #433716;
+            --ink: #f8fafc;
+            --ink-soft: #e5e7eb;
+            --muted: #a7b0c0;
+            --line: #263244;
+            --line-strong: #3b4a60;
+            --blue: #60a5fa;
+            --green: #34d399;
+            --shadow: 0 18px 50px rgba(0, 0, 0, 0.32);
         }
 
         * { box-sizing: border-box; }
@@ -26,6 +53,7 @@
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             color: var(--ink);
             background: var(--bg);
+            transition: background 180ms ease, color 180ms ease;
         }
 
         button, input, textarea { font: inherit; }
@@ -102,7 +130,7 @@
         .input-group label {
             display: block;
             margin-bottom: 7px;
-            color: #374151;
+            color: var(--ink-soft);
             font-size: 0.88rem;
             font-weight: 700;
         }
@@ -112,7 +140,7 @@
             border: 1px solid var(--line-strong);
             border-radius: 8px;
             outline: none;
-            background: #ffffff;
+            background: var(--surface);
             color: var(--ink);
         }
 
@@ -135,9 +163,36 @@
         .button.dark { width: 100%; background: #111827; }
         .button.send { padding: 0 16px; background: var(--blue); }
         .button.ai { padding: 0 16px; background: var(--green); }
+        .button.icon {
+            min-width: 44px;
+            padding: 0 13px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--ink);
+        }
+        .button.exit {
+            padding: 0 15px;
+            border: 1px solid rgba(225, 29, 72, 0.42);
+            background: transparent;
+            color: #be123c;
+        }
         .button.quiz {
             flex: 1;
             background: #7c3aed;
+        }
+
+        .button.flashcards {
+            flex: 1;
+            background: #0891b2;
+        }
+
+        .button.timer {
+            min-height: 34px;
+            padding: 0 10px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--ink);
+            font-size: 0.8rem;
         }
 
         .quiz-controls {
@@ -146,12 +201,57 @@
             padding: 14px 14px 0;
         }
 
+        .study-tools {
+            display: grid;
+            gap: 10px;
+            padding: 14px 14px 0;
+        }
+
+        .upload-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .file-control {
+            min-width: 0;
+            min-height: 44px;
+            padding: 9px 10px;
+            border: 1px dashed var(--line-strong);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--muted);
+        }
+
+        .file-control::file-selector-button {
+            min-height: 30px;
+            margin-right: 10px;
+            border: 0;
+            border-radius: 7px;
+            background: var(--ink);
+            color: var(--surface);
+            font-weight: 800;
+        }
+
+        .upload-status {
+            min-height: 28px;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 800;
+            overflow-wrap: anywhere;
+        }
+
+        .upload-status.ready {
+            color: var(--green);
+        }
+
         .quiz-controls select {
             width: 86px;
             min-height: 44px;
             border: 1px solid var(--line-strong);
             border-radius: 8px;
-            background: #ffffff;
+            background: var(--surface);
             color: var(--ink);
             font-weight: 800;
             padding: 0 10px;
@@ -189,7 +289,7 @@
             gap: 20px;
             padding: 16px 22px;
             border-bottom: 1px solid var(--line);
-            background: rgba(255,255,255,0.86);
+            background: color-mix(in srgb, var(--surface) 86%, transparent);
             backdrop-filter: blur(14px);
         }
 
@@ -223,6 +323,33 @@
             justify-content: flex-end;
         }
 
+        .timer-widget {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            min-height: 42px;
+            padding: 4px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .timer-display {
+            min-width: 64px;
+            color: var(--ink);
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .timer-mode {
+            min-width: 46px;
+            color: var(--muted);
+            font-size: 0.76rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
         .pill {
             display: inline-flex;
             align-items: center;
@@ -231,8 +358,8 @@
             padding: 0 12px;
             border: 1px solid var(--line);
             border-radius: 999px;
-            background: #ffffff;
-            color: #374151;
+            background: var(--surface);
+            color: var(--ink-soft);
             font-size: 0.85rem;
             font-weight: 700;
         }
@@ -282,6 +409,13 @@
             font-weight: 800;
         }
 
+        .notes-shell {
+            position: relative;
+            flex: 1;
+            min-height: 460px;
+            display: flex;
+        }
+
         #notes-area {
             flex: 1;
             min-height: 460px;
@@ -289,11 +423,36 @@
             border: 0;
             border-radius: 0;
             resize: none;
-            background: #fffef8;
+            background: var(--surface-note);
             line-height: 1.6;
         }
 
         #notes-area:focus { box-shadow: inset 0 0 0 3px rgba(37, 99, 235, 0.12); }
+
+        .cursor-layer {
+            position: absolute;
+            inset: 12px 12px auto 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            flex-wrap: wrap;
+            pointer-events: none;
+        }
+
+        .cursor-tag {
+            max-width: 160px;
+            padding: 5px 8px;
+            border: 1px solid rgba(37, 99, 235, 0.28);
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--blue) 12%, var(--surface));
+            color: var(--ink);
+            font-size: 0.74rem;
+            font-weight: 900;
+            box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
 
         .users {
             padding: 14px 18px;
@@ -310,7 +469,7 @@
             color: var(--muted);
         }
 
-        #user-list { color: #1f2937; line-height: 1.5; overflow-wrap: anywhere; }
+        #user-list { color: var(--ink-soft); line-height: 1.5; overflow-wrap: anywhere; }
 
         .message-list, .ai-list {
             flex: 1;
@@ -326,13 +485,19 @@
                 var(--surface-soft);
         }
 
+        body.dark-mode .ai-list {
+            background:
+                linear-gradient(180deg, rgba(19, 52, 38, 0.55), rgba(17, 24, 39, 0)),
+                var(--surface-soft);
+        }
+
         .message {
             max-width: 92%;
             margin-bottom: 12px;
             padding: 10px 12px;
             border: 1px solid var(--line);
             border-radius: 8px;
-            background: #ffffff;
+            background: var(--surface-chat);
             line-height: 1.45;
             overflow-wrap: anywhere;
         }
@@ -340,27 +505,27 @@
         .message.mine {
             margin-left: auto;
             border-color: rgba(37, 99, 235, 0.24);
-            background: #eff6ff;
+            background: var(--surface-chat-mine);
         }
 
         .message.ai-message {
             border-color: rgba(5, 150, 105, 0.24);
-            background: #ecfdf5;
+            background: var(--surface-ai);
         }
 
         .message strong {
             display: block;
             margin-bottom: 4px;
             font-size: 0.8rem;
-            color: #374151;
+            color: var(--ink-soft);
         }
 
         .ai-empty {
             padding: 14px;
             border: 1px dashed rgba(5, 150, 105, 0.34);
             border-radius: 8px;
-            color: #475569;
-            background: rgba(255,255,255,0.72);
+            color: var(--muted);
+            background: color-mix(in srgb, var(--surface) 72%, transparent);
             line-height: 1.5;
         }
 
@@ -369,7 +534,7 @@
             padding: 14px;
             border: 1px solid rgba(124, 58, 237, 0.24);
             border-radius: 8px;
-            background: #f5f3ff;
+            background: var(--surface-quiz);
         }
 
         .quiz-card.answered .quiz-option:not(.selected):not(.correct) {
@@ -389,7 +554,7 @@
             padding: 9px 11px;
             border: 1px solid var(--line-strong);
             border-radius: 8px;
-            background: #ffffff;
+            background: var(--surface);
             color: var(--ink);
             text-align: left;
             line-height: 1.35;
@@ -427,13 +592,13 @@
             padding: 12px;
             border: 1px solid var(--line);
             border-radius: 8px;
-            background: #ffffff;
+            background: var(--surface);
         }
 
         .leaderboard h4 {
             margin: 0 0 9px;
             font-size: 0.84rem;
-            color: #374151;
+            color: var(--ink-soft);
         }
 
         .leaderboard-row {
@@ -442,14 +607,18 @@
             gap: 10px;
             padding: 8px 9px;
             border-radius: 8px;
-            color: #374151;
+            color: var(--ink-soft);
             font-size: 0.88rem;
             font-weight: 700;
         }
 
         .leaderboard-row.leader {
-            background: #fef3c7;
+            background: var(--surface-warning);
             color: #92400e;
+        }
+
+        body.dark-mode .leaderboard-row.leader {
+            color: #facc15;
         }
 
         .input-row {
@@ -457,7 +626,7 @@
             gap: 10px;
             padding: 14px;
             border-top: 1px solid var(--line);
-            background: #ffffff;
+            background: var(--surface);
         }
 
         .input-row input { min-width: 0; }
@@ -467,6 +636,201 @@
             max-height: 150px;
             padding: 11px 12px;
             resize: vertical;
+        }
+
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            background: rgba(15, 23, 42, 0.66);
+        }
+
+        .flashcard-modal {
+            width: min(680px, 100%);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .flashcard-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 16px 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .flashcard-top h3 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .flashcard-counter {
+            color: var(--muted);
+            font-size: 0.84rem;
+            font-weight: 800;
+        }
+
+        .flashcard-stage {
+            padding: 20px;
+        }
+
+        .flashcard {
+            min-height: 280px;
+            display: grid;
+            place-items: center;
+            padding: 26px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface-soft);
+            color: var(--ink);
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.45;
+            transition: transform 180ms ease, background 180ms ease;
+        }
+
+        .flashcard.flipped {
+            background: var(--surface-ai);
+            transform: rotateY(180deg);
+        }
+
+        .flashcard.flipped span {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-actions {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 10px;
+            padding: 0 20px 20px;
+        }
+
+        .button.secondary {
+            padding: 0 14px;
+            border: 1px solid var(--line);
+            background: var(--surface);
+            color: var(--ink);
+        }
+
+        .toast-container {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            z-index: 40;
+            display: grid;
+            gap: 10px;
+            width: min(360px, calc(100vw - 36px));
+            pointer-events: none;
+        }
+
+        .toast {
+            padding: 12px 14px;
+            border: 1px solid var(--line);
+            border-left: 4px solid var(--blue);
+            border-radius: 8px;
+            background: var(--surface);
+            color: var(--ink);
+            box-shadow: var(--shadow);
+            font-size: 0.9rem;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .toast.warning {
+            border-left-color: #f59e0b;
+        }
+
+        .toast.success {
+            border-left-color: var(--green);
+        }
+
+        .resource-drawer {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 30;
+            width: min(420px, 100vw);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--line);
+            background: var(--surface);
+            box-shadow: -18px 0 44px rgba(15, 23, 42, 0.16);
+            transform: translateX(100%);
+            transition: transform 180ms ease;
+        }
+
+        .resource-drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .drawer-header h3 {
+            margin: 0 0 4px;
+            font-size: 1rem;
+        }
+
+        .drawer-header span {
+            color: var(--muted);
+            font-size: 0.83rem;
+        }
+
+        .bookmark-form {
+            display: grid;
+            gap: 10px;
+            padding: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .bookmark-form input {
+            background: var(--surface-soft);
+        }
+
+        .bookmark-list {
+            flex: 1;
+            overflow-y: auto;
+            display: grid;
+            align-content: start;
+            gap: 10px;
+            padding: 14px;
+            background: var(--surface-soft);
+        }
+
+        .bookmark-item {
+            display: grid;
+            gap: 5px;
+            padding: 12px;
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            background: var(--surface);
+        }
+
+        .bookmark-item a {
+            color: var(--blue);
+            font-weight: 900;
+            overflow-wrap: anywhere;
+        }
+
+        .bookmark-item span {
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 800;
         }
 
         @media (max-width: 1100px) {
@@ -480,7 +844,8 @@
             .topbar { align-items: flex-start; flex-direction: column; }
             .workspace-grid { padding: 10px; }
             .input-row { flex-direction: column; }
-            .quiz-controls { padding: 10px 10px 0; }
+            .quiz-controls { padding: 10px 10px 0; flex-direction: column; }
+            .upload-row, .flashcard-actions { grid-template-columns: 1fr; }
             .button.send, .button.ai { width: 100%; min-height: 42px; }
         }
     </style>
@@ -525,8 +890,20 @@
             </div>
         </div>
         <div class="topbar-meta">
+            <div class="timer-widget" aria-label="Synced Pomodoro timer">
+                <div class="timer-mode" id="timer-mode">Work</div>
+                <div class="timer-display" id="timer-display">25:00</div>
+                <button type="button" class="button timer" id="timer-start" onclick="sendPomodoroAction('start')">Start</button>
+                <button type="button" class="button timer" id="timer-pause" onclick="sendPomodoroAction('pause')">Pause</button>
+                <button type="button" class="button timer" onclick="sendPomodoroAction('reset')">Reset</button>
+                <button type="button" class="button timer" onclick="sendPomodoroAction('reset', 'work')">Work</button>
+                <button type="button" class="button timer" onclick="sendPomodoroAction('reset', 'break')">Break</button>
+            </div>
             <div class="pill">Room code: <span id="room-code">-</span></div>
             <div class="pill"><span class="dot"></span> Synced</div>
+            <button type="button" class="button secondary" onclick="toggleResourceDrawer()">Resources</button>
+            <button type="button" class="button icon" id="theme-toggle" onclick="toggleDarkMode()" aria-label="Switch to dark mode" title="Toggle dark mode">Moon</button>
+            <button type="button" class="button exit" onclick="exitRoom()">Exit Room</button>
         </div>
     </header>
 
@@ -539,7 +916,10 @@
                 </div>
                 <div class="status" id="notes-status">Ready</div>
             </div>
-            <textarea id="notes-area" placeholder="Capture formulas, definitions, questions, and decisions here..."></textarea>
+            <div class="notes-shell">
+                <textarea id="notes-area" placeholder="Capture formulas, definitions, questions, and decisions here..."></textarea>
+                <div class="cursor-layer" id="cursor-layer" aria-live="polite"></div>
+            </div>
         </section>
 
         <section class="panel" aria-label="Live chat">
@@ -567,6 +947,13 @@
                     <span>Ask questions using the latest shared notes as context.</span>
                 </div>
             </div>
+            <div class="study-tools">
+                <div class="upload-row">
+                    <input type="file" id="pdf-upload" class="file-control" accept="application/pdf" aria-label="Upload study PDF" />
+                    <button class="button secondary" id="pdf-upload-send" onclick="uploadPdf()">Upload PDF</button>
+                </div>
+                <div class="upload-status" id="pdf-status">No PDF uploaded</div>
+            </div>
             <div class="quiz-controls">
                 <select id="quiz-count" aria-label="Number of quiz questions">
                     <option value="3">3</option>
@@ -574,6 +961,7 @@
                     <option value="10">10</option>
                 </select>
                 <button class="button quiz" id="quiz-send" onclick="generateQuiz()">✨ Generate Room Quiz</button>
+                <button class="button flashcards" id="flashcard-send" onclick="generateFlashcards()">✨ Generate Flashcards</button>
             </div>
             <div class="leaderboard" id="leaderboard">
                 <h4>Live Leaderboard</h4>
@@ -590,13 +978,62 @@
     </div>
 </section>
 
+<aside id="resource-drawer" class="resource-drawer" aria-label="Shared resources">
+    <div class="drawer-header">
+        <div>
+            <h3>Shared Resources</h3>
+            <span>Room links and study references</span>
+        </div>
+        <button type="button" class="button icon" onclick="toggleResourceDrawer()" aria-label="Close resources">Close</button>
+    </div>
+    <div class="bookmark-form">
+        <input type="text" id="bookmark-title" placeholder="Resource title" />
+        <input type="url" id="bookmark-url" placeholder="https://example.com/article" onkeydown="handleBookmarkKey(event)" />
+        <button type="button" class="button primary" onclick="addBookmark()">Add Resource</button>
+    </div>
+    <div id="bookmark-list" class="bookmark-list">
+        <div class="ai-empty">No shared resources yet.</div>
+    </div>
+</aside>
+
+<div id="flashcard-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="flashcard-title">
+    <section class="flashcard-modal">
+        <div class="flashcard-top">
+            <div>
+                <h3 id="flashcard-title">Room Flashcards</h3>
+                <div class="flashcard-counter" id="flashcard-counter">0 of 0</div>
+            </div>
+            <button type="button" class="button icon" onclick="closeFlashcardModal()" aria-label="Close flashcards">Close</button>
+        </div>
+        <div class="flashcard-stage">
+            <button type="button" class="flashcard" id="flashcard-card" onclick="flipFlashcard()" aria-label="Flip flashcard">
+                <span id="flashcard-content">Generate flashcards to begin.</span>
+            </button>
+        </div>
+        <div class="flashcard-actions">
+            <button type="button" class="button secondary" onclick="showPreviousFlashcard()">Previous</button>
+            <button type="button" class="button primary" onclick="flipFlashcard()">Flip Card</button>
+            <button type="button" class="button secondary" onclick="showNextFlashcard()">Next</button>
+        </div>
+    </section>
+</div>
+
+<div id="toast-container" class="toast-container" aria-live="polite" aria-atomic="true"></div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    const socket = io();
+    const DARK_MODE_KEY = "study-room-dark-mode";
+    let socket = io();
     let currentRoom = "";
     let username = "";
     let aiWaiting = false;
     let quizWaiting = false;
+    let flashcardWaiting = false;
+    let flashcards = [];
+    let flashcardState = { index: 0, flipped: false };
+    let pomodoroState = { mode: "work", duration: 1500, remaining: 1500, running: false, startedAt: null };
+    let pomodoroTick = null;
+    let bookmarks = [];
 
     const notesArea = document.getElementById("notes-area");
     const notesStatus = document.getElementById("notes-status");
@@ -607,6 +1044,54 @@
     const quizSend = document.getElementById("quiz-send");
     const quizCount = document.getElementById("quiz-count");
     const leaderboard = document.getElementById("leaderboard");
+    const themeToggle = document.getElementById("theme-toggle");
+    const pdfUpload = document.getElementById("pdf-upload");
+    const pdfUploadSend = document.getElementById("pdf-upload-send");
+    const pdfStatus = document.getElementById("pdf-status");
+    const flashcardSend = document.getElementById("flashcard-send");
+    const flashcardModal = document.getElementById("flashcard-modal");
+    const flashcardCard = document.getElementById("flashcard-card");
+    const flashcardContent = document.getElementById("flashcard-content");
+    const flashcardCounter = document.getElementById("flashcard-counter");
+    const toastContainer = document.getElementById("toast-container");
+    const cursorLayer = document.getElementById("cursor-layer");
+    const timerMode = document.getElementById("timer-mode");
+    const timerDisplay = document.getElementById("timer-display");
+    const timerStart = document.getElementById("timer-start");
+    const timerPause = document.getElementById("timer-pause");
+    const resourceDrawer = document.getElementById("resource-drawer");
+    const bookmarkTitle = document.getElementById("bookmark-title");
+    const bookmarkUrl = document.getElementById("bookmark-url");
+    const bookmarkList = document.getElementById("bookmark-list");
+
+    function applyDarkMode(enabled) {
+        document.body.classList.toggle("dark-mode", enabled);
+        themeToggle.innerText = enabled ? "Sun" : "Moon";
+        themeToggle.setAttribute("aria-label", enabled ? "Switch to light mode" : "Switch to dark mode");
+        localStorage.setItem(DARK_MODE_KEY, enabled ? "true" : "false");
+    }
+
+    function toggleDarkMode() {
+        applyDarkMode(!document.body.classList.contains("dark-mode"));
+    }
+
+    function ensureSocket() {
+        if (!socket.connected) {
+            socket.connect();
+        }
+    }
+
+    applyDarkMode(localStorage.getItem(DARK_MODE_KEY) === "true");
+
+    function showToast(message, type = "info") {
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+        toast.textContent = message;
+        toastContainer.appendChild(toast);
+        window.setTimeout(() => {
+            toast.remove();
+        }, 3600);
+    }
 
     function createRoom() {
         username = document.getElementById("username").value.trim();
@@ -633,12 +1118,61 @@
     }
 
     function initRoomConnection() {
+        ensureSocket();
         socket.emit("join_room", { roomId: currentRoom, username });
 
         document.getElementById("login-section").classList.add("hidden");
         document.getElementById("room-section").classList.remove("hidden");
         document.getElementById("room-title").innerText = `Room: ${currentRoom}`;
         document.getElementById("room-code").innerText = currentRoom;
+    }
+
+    function exitRoom() {
+        if (currentRoom) {
+            socket.emit("leave_room", { roomId: currentRoom });
+        }
+
+        socket.disconnect();
+        currentRoom = "";
+        username = "";
+        aiWaiting = false;
+        quizWaiting = false;
+        flashcardWaiting = false;
+        flashcards = [];
+        flashcardState = { index: 0, flipped: false };
+        bookmarks = [];
+        pomodoroState = { mode: "work", duration: 1500, remaining: 1500, running: false, startedAt: null };
+
+        notesArea.value = "";
+        notesStatus.innerText = "Ready";
+        cursorLayer.innerHTML = "";
+        chatBox.innerHTML = "";
+        aiBox.innerHTML = '<div class="ai-empty">Ask for a summary, a simpler explanation, practice questions, or a next-step study plan.</div>';
+        closeFlashcardModal();
+        resourceDrawer.classList.remove("open");
+        bookmarkTitle.value = "";
+        bookmarkUrl.value = "";
+        renderBookmarks([]);
+        renderPomodoro();
+        pdfUpload.value = "";
+        pdfStatus.innerText = "No PDF uploaded";
+        pdfStatus.classList.remove("ready");
+        document.getElementById("user-list").innerText = "Waiting for classmates...";
+        document.getElementById("room-code").innerText = "-";
+        document.getElementById("room-title").innerText = "Room";
+        document.getElementById("room-id").value = "";
+        aiInput.value = "";
+        document.getElementById("message-input").value = "";
+        aiSend.disabled = false;
+        aiSend.innerText = "Ask";
+        quizSend.disabled = false;
+        quizSend.innerText = "✨ Generate Room Quiz";
+        flashcardSend.disabled = false;
+        flashcardSend.innerText = "✨ Generate Flashcards";
+        renderLeaderboard([]);
+
+        document.getElementById("room-section").classList.add("hidden");
+        document.getElementById("login-section").classList.remove("hidden");
     }
 
     function escapeHTML(value) {
@@ -661,11 +1195,46 @@
     notesArea.addEventListener("input", () => {
         notesStatus.innerText = "Syncing";
         socket.emit("update_notes", notesArea.value);
+        emitCursorPresence();
         window.clearTimeout(notesArea.syncTimer);
         notesArea.syncTimer = window.setTimeout(() => {
             notesStatus.innerText = "Synced";
         }, 250);
     });
+
+    notesArea.addEventListener("keyup", emitCursorPresence);
+    notesArea.addEventListener("click", emitCursorPresence);
+    notesArea.addEventListener("select", emitCursorPresence);
+
+    function getCursorLocation() {
+        const position = notesArea.selectionStart || 0;
+        const beforeCursor = notesArea.value.slice(0, position);
+        const lines = beforeCursor.split("\n");
+        return {
+            position,
+            line: lines.length,
+            column: lines[lines.length - 1].length + 1
+        };
+    }
+
+    function emitCursorPresence() {
+        if (!currentRoom || !username || !socket.connected) return;
+        socket.emit("cursor_update", getCursorLocation());
+    }
+
+    function renderCursorPresence(cursors) {
+        const activeCursors = (Array.isArray(cursors) ? cursors : [])
+            .filter(cursor => cursor.username && cursor.username !== username)
+            .slice(0, 8);
+
+        cursorLayer.innerHTML = "";
+        activeCursors.forEach((cursor) => {
+            const tag = document.createElement("div");
+            tag.className = "cursor-tag";
+            tag.textContent = `${cursor.username} editing L${cursor.line || 1}:C${cursor.column || 1}`;
+            cursorLayer.appendChild(tag);
+        });
+    }
 
     socket.on("receive_note_update", (newContent) => {
         if (notesArea.value !== newContent) {
@@ -705,7 +1274,196 @@
         if (typeof room.notes === "string" && notesArea.value !== room.notes) {
             notesArea.value = room.notes;
         }
+
+        if (room.hasPdfContext && room.pdfFileName) {
+            updatePdfStatus({
+                fileName: room.pdfFileName,
+                characterCount: 0
+            });
+        }
+
+        if (room.pomodoro) updatePomodoro(room.pomodoro);
+        if (Array.isArray(room.bookmarks)) renderBookmarks(room.bookmarks);
+        if (Array.isArray(room.cursors)) renderCursorPresence(room.cursors);
     });
+
+    function updatePdfStatus({ fileName, pageCount, characterCount }) {
+        const details = [];
+        if (pageCount) details.push(`${pageCount} pages`);
+        if (characterCount) details.push(`${characterCount.toLocaleString()} characters`);
+        pdfStatus.innerText = `Ready: ${fileName || "PDF"}${details.length ? ` (${details.join(", ")})` : ""}`;
+        pdfStatus.classList.add("ready");
+    }
+
+    async function uploadPdf() {
+        const file = pdfUpload.files[0];
+        if (!currentRoom) {
+            alert("Join or create a room before uploading a PDF.");
+            return;
+        }
+
+        if (!file) {
+            alert("Choose a PDF to upload.");
+            return;
+        }
+
+        if (file.type !== "application/pdf") {
+            alert("Please choose a PDF file.");
+            return;
+        }
+
+        if (file.size > 5 * 1024 * 1024) {
+            showToast("PDF uploads are limited to 5MB.", "warning");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append("roomId", currentRoom);
+        formData.append("pdf", file);
+
+        pdfUploadSend.disabled = true;
+        pdfUploadSend.innerText = "Processing";
+        pdfStatus.innerText = "Extracting PDF text...";
+        pdfStatus.classList.remove("ready");
+
+        try {
+            const response = await fetch("/api/upload-pdf", {
+                method: "POST",
+                body: formData
+            });
+            const result = await response.json();
+
+            if (!response.ok) {
+                throw new Error(result.error || "PDF upload failed.");
+            }
+
+            updatePdfStatus(result);
+        } catch (error) {
+            pdfStatus.innerText = error.message || "PDF upload failed.";
+            pdfStatus.classList.remove("ready");
+            showToast(pdfStatus.innerText, "warning");
+        } finally {
+            pdfUploadSend.disabled = false;
+            pdfUploadSend.innerText = "Upload PDF";
+        }
+    }
+
+    pdfUpload.addEventListener("change", () => {
+        const file = pdfUpload.files[0];
+        if (file && file.size > 5 * 1024 * 1024) {
+            showToast("That PDF is larger than 5MB. Choose a smaller study file.", "warning");
+            pdfUpload.value = "";
+        }
+    });
+
+    function formatTime(totalSeconds) {
+        const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, "0");
+        const seconds = Math.max(0, totalSeconds % 60).toString().padStart(2, "0");
+        return `${minutes}:${seconds}`;
+    }
+
+    function getLivePomodoroRemaining() {
+        if (!pomodoroState.running || !pomodoroState.startedAt) {
+            return pomodoroState.remaining;
+        }
+
+        const elapsed = Math.floor((Date.now() - pomodoroState.startedAt) / 1000);
+        return Math.max(0, pomodoroState.remaining - elapsed);
+    }
+
+    function renderPomodoro() {
+        const remaining = getLivePomodoroRemaining();
+        timerMode.innerText = pomodoroState.mode === "break" ? "Break" : "Work";
+        timerDisplay.innerText = formatTime(remaining);
+        timerStart.disabled = pomodoroState.running;
+        timerPause.disabled = !pomodoroState.running;
+
+        if (pomodoroTick) window.clearInterval(pomodoroTick);
+        if (pomodoroState.running) {
+            pomodoroTick = window.setInterval(() => {
+                const remaining = getLivePomodoroRemaining();
+                timerDisplay.innerText = formatTime(remaining);
+                if (remaining === 0) {
+                    pomodoroState.running = false;
+                    pomodoroState.startedAt = null;
+                    renderPomodoro();
+                    showToast(`${pomodoroState.mode === "break" ? "Break" : "Work"} timer finished.`, "success");
+                }
+            }, 1000);
+        }
+    }
+
+    function updatePomodoro(nextState) {
+        pomodoroState = {
+            mode: nextState.mode || "work",
+            duration: Number.parseInt(nextState.duration, 10) || 1500,
+            remaining: Number.parseInt(nextState.remaining, 10) || 0,
+            running: Boolean(nextState.running),
+            startedAt: nextState.startedAt || null
+        };
+        renderPomodoro();
+    }
+
+    function sendPomodoroAction(action, mode = pomodoroState.mode) {
+        if (!currentRoom) {
+            showToast("Join a room before controlling the timer.", "warning");
+            return;
+        }
+
+        socket.emit("pomodoro_action", { action, mode });
+    }
+
+    renderPomodoro();
+
+    function toggleResourceDrawer() {
+        resourceDrawer.classList.toggle("open");
+    }
+
+    function addBookmark() {
+        const title = bookmarkTitle.value.trim();
+        const url = bookmarkUrl.value.trim();
+
+        if (!currentRoom) {
+            showToast("Join a room before sharing resources.", "warning");
+            return;
+        }
+
+        if (!url) {
+            showToast("Paste a resource link first.", "warning");
+            return;
+        }
+
+        socket.emit("add_bookmark", { title, url });
+        bookmarkTitle.value = "";
+        bookmarkUrl.value = "";
+    }
+
+    function handleBookmarkKey(event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            addBookmark();
+        }
+    }
+
+    function renderBookmarks(nextBookmarks) {
+        bookmarks = Array.isArray(nextBookmarks) ? nextBookmarks : [];
+        bookmarkList.innerHTML = "";
+
+        if (!bookmarks.length) {
+            bookmarkList.innerHTML = '<div class="ai-empty">No shared resources yet.</div>';
+            return;
+        }
+
+        bookmarks.forEach((bookmark) => {
+            const item = document.createElement("div");
+            item.className = "bookmark-item";
+            item.innerHTML = `
+                <a href="${escapeHTML(bookmark.url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(bookmark.title || bookmark.url)}</a>
+                <span>Shared by ${escapeHTML(bookmark.username || "Student")}</span>
+            `;
+            bookmarkList.appendChild(item);
+        });
+    }
 
     function askAI() {
         const prompt = aiInput.value.trim();
@@ -745,6 +1503,73 @@
             notesContext: notesArea.value,
             numQuestions: Number.parseInt(quizCount.value, 10)
         });
+    }
+
+    function generateFlashcards() {
+        if (flashcardWaiting) return;
+
+        const emptyState = aiBox.querySelector(".ai-empty");
+        if (emptyState) emptyState.remove();
+
+        flashcardWaiting = true;
+        flashcardSend.disabled = true;
+        flashcardSend.innerText = "Generating";
+        addMessage(aiBox, {
+            author: "AI Study Assistant",
+            text: "Generating shared flashcards from the room notes and uploaded PDF content...",
+            ai: true
+        });
+
+        socket.emit("generate_flashcards");
+    }
+
+    function openFlashcardModal() {
+        flashcardModal.classList.remove("hidden");
+        renderFlashcard();
+    }
+
+    function closeFlashcardModal() {
+        flashcardModal.classList.add("hidden");
+    }
+
+    function renderFlashcard() {
+        const total = flashcards.length;
+        if (!total) {
+            flashcardCounter.innerText = "0 of 0";
+            flashcardCard.classList.remove("flipped");
+            flashcardContent.innerText = "Generate flashcards to begin.";
+            return;
+        }
+
+        const card = flashcards[flashcardState.index] || flashcards[0];
+        flashcardCounter.innerText = `${flashcardState.index + 1} of ${total}`;
+        flashcardCard.classList.toggle("flipped", flashcardState.flipped);
+        flashcardContent.innerText = flashcardState.flipped ? card.back : card.front;
+    }
+
+    function syncFlashcardState(nextState) {
+        if (!flashcards.length) return;
+
+        const nextIndex = Math.max(0, Math.min(flashcards.length - 1, nextState.index));
+        flashcardState = { index: nextIndex, flipped: Boolean(nextState.flipped) };
+        socket.emit("flashcard_state_update", flashcardState);
+        renderFlashcard();
+    }
+
+    function flipFlashcard() {
+        syncFlashcardState({ ...flashcardState, flipped: !flashcardState.flipped });
+    }
+
+    function showPreviousFlashcard() {
+        if (!flashcards.length) return;
+        const nextIndex = flashcardState.index === 0 ? flashcards.length - 1 : flashcardState.index - 1;
+        syncFlashcardState({ index: nextIndex, flipped: false });
+    }
+
+    function showNextFlashcard() {
+        if (!flashcards.length) return;
+        const nextIndex = flashcardState.index === flashcards.length - 1 ? 0 : flashcardState.index + 1;
+        syncFlashcardState({ index: nextIndex, flipped: false });
     }
 
     function renderQuizQuestions(quizQuestions) {
@@ -823,6 +1648,9 @@
         quizWaiting = false;
         quizSend.disabled = false;
         quizSend.innerText = "✨ Generate Room Quiz";
+        flashcardWaiting = false;
+        flashcardSend.disabled = false;
+        flashcardSend.innerText = "✨ Generate Flashcards";
     });
 
     function renderLeaderboard(scores) {
@@ -866,6 +1694,49 @@
     });
 
     socket.on("leaderboard_update", renderLeaderboard);
+
+    socket.on("user_joined", ({ username: joinedUser }) => {
+        showToast(`${joinedUser || "A classmate"} joined the room.`, "success");
+    });
+
+    socket.on("user_left", ({ username: leftUser }) => {
+        showToast(`${leftUser || "A classmate"} left the room.`);
+    });
+
+    socket.on("cursor_presence_update", renderCursorPresence);
+
+    socket.on("pomodoro_update", updatePomodoro);
+
+    socket.on("bookmark_update", renderBookmarks);
+
+    socket.on("bookmark_error", ({ message }) => {
+        showToast(message || "That resource link could not be added.", "warning");
+    });
+
+    socket.on("pdf_context_update", (data) => {
+        updatePdfStatus(data);
+        showToast(`${data.fileName || "PDF"} is ready for AI study tools.`, "success");
+    });
+
+    socket.on("flashcards_generated", ({ flashcards: generatedFlashcards, state }) => {
+        flashcards = Array.isArray(generatedFlashcards) ? generatedFlashcards : [];
+        flashcardState = state || { index: 0, flipped: false };
+        flashcardWaiting = false;
+        flashcardSend.disabled = false;
+        flashcardSend.innerText = "✨ Generate Flashcards";
+
+        addMessage(aiBox, {
+            author: "AI Study Assistant",
+            text: `Created ${flashcards.length} shared flashcards. Opening the deck now.`,
+            ai: true
+        });
+        openFlashcardModal();
+    });
+
+    socket.on("flashcard_state_update", (state) => {
+        flashcardState = state || flashcardState;
+        renderFlashcard();
+    });
 </script>
 
 </body>
